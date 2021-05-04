@@ -1,0 +1,9 @@
+HTTP/1.1 500 Internal Server Error
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 90
+ETag: W/"5a-NAvxYOIg9G7CbxUrpUB4DlGamXw"
+Date: Tue, 04 May 2021 16:58:20 GMT
+Connection: keep-alive
+
+{"message":"Bind parameters must not contain undefined. To pass SQL NULL specify JS null"}
