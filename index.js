@@ -1,10 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+var cors = require('cors')
+
 const port = process.env.PORT || 3001;
 const programmingLanguagesRouter = require('./routes/lang');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+
+app.use(cors())
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -15,7 +23,7 @@ app.get('/', (req, res) => {
   res.json({'message': 'ok'});
 })
 
-app.use('/programming-languages', programmingLanguagesRouter);
+app.use('/todos', programmingLanguagesRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

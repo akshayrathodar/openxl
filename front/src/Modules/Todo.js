@@ -17,7 +17,9 @@ import Container from '@material-ui/core/Container';
 import { Cards } from '../Elements/Cards';
 
 import { connect } from "react-redux";
-import { addtodoList } from '../actions/index';
+import { addtodoList , todoList } from '../actions/index';
+
+import { getProduct } from '../Apis/callApis';
 
 const styles = (theme) => ({
   paper: {
@@ -51,6 +53,17 @@ class Todos extends React.Component {
     };
   }
 
+
+  componentDidMount() {
+    getProduct().then((res) => {
+        if(res.data.data) {
+          this.props.todoList(res.data.data);
+        }
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   onTextChanges = (evt) => {
       let text = evt.target.value;
       this.setState({temptxt:text});
@@ -63,6 +76,7 @@ class Todos extends React.Component {
       let todotxt = this.state.temptxt;
       let list = [...this.state.lists];
       list.push({'id':randomnum,'todo':todotxt,'checked':true});
+      this.props.addtodoList({'todo':todotxt,'checked':true});
       this.setState({lists:list,temptxt:''});
     } else {
       alert('please enter todo text');
@@ -128,7 +142,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-      addtodoList: stat => dispatch(addtodoList(stat))
+      addtodoList: stat => dispatch(addtodoList(stat)),
+      todoList  : stat => dispatch(todoList(stat))
   };
 }
 

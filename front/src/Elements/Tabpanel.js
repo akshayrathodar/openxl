@@ -7,6 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+import All from '../Elements/All';
+
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -14,8 +17,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`wrapped-tabpanel-${index}`}
-      aria-labelledby={`wrapped-tab-${index}`}
+      id={`scrollable-auto-tabpanel-${index}`}
+      aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -35,21 +38,22 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `wrapped-tab-${index}`,
-    'aria-controls': `wrapped-tabpanel-${index}`,
+    id: `scrollable-auto-tab-${index}`,
+    'aria-controls': `scrollable-auto-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
 
-export default function TabsWrappedLabel() {
+export default function ScrollableTabsButtonAuto() {
   const classes = useStyles();
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,26 +61,29 @@ export default function TabsWrappedLabel() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example">
-          <Tab
-            value="one"
-            label="All"
-            wrapped
-            {...a11yProps('one')}
-          />
-          <Tab value="two" label="ongoing" {...a11yProps('two')} />
-          <Tab value="three" label="completed" {...a11yProps('three')} />
+      <AppBar position="static" color="default">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="scrollable auto tabs example"
+        >
+          <Tab label="All" {...a11yProps(0)} />
+          <Tab label="Ongoing" {...a11yProps(1)} />
+          <Tab label="Completed" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index="one">
-        Item One
+      <TabPanel value={value} index={0}>
+          <All/>
       </TabPanel>
-      <TabPanel value={value} index="two">
-        Item Two
+      <TabPanel value={value} index={1}>
+        Ongoing
       </TabPanel>
-      <TabPanel value={value} index="three">
-        Item Three
+      <TabPanel value={value} index={2}>
+        Completed
       </TabPanel>
     </div>
   );

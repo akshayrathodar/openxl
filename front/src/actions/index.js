@@ -4,6 +4,5 @@ export function todoList(payload) {
 };
 
 export function addtodoList(payload) {
-    console.log(payload);
     return { type: "ADD_TODO_LIST", payload }
 };

@@ -19,13 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 export const Cards = (props) => {
+    console.log(props);
     const classes = useStyles();
     const lists = [...props.list];
     
     return(
         <>
          {lists.map(obj=>{
-             return <div className={classes.main} key={obj.id}><Box component="span" display="block" boxShadow={3} p={1} m={2} className={classes.cardbg} ><Switch checked={obj.checked} onChange={()=>{props.checkboxEvt(obj.id)}} />{obj.todo}</Box></div>;
+             return <div className={classes.main} key={obj.id}><Box component="span" display="block" boxShadow={3} p={1} m={2} className={classes.cardbg} ><Switch checked={obj.status} onChange={()=>{props.checkboxEvt(obj.id)}} />{obj.todotext}</Box></div>;
          })}
             
         </>
